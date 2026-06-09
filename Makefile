@@ -39,7 +39,7 @@ ENABLE_SCCACHE := 0
 ENABLE_FUNCTIONAL_TESTS := 0
 LINK_CURSES := 0
 LINK_TERMCAP := 0
-LINK_ABC := 0
+LINK_ABC := 1
 # Needed for environments that can't run executables (i.e. emscripten, wasm)
 DISABLE_SPAWN := 0
 # Needed for environments that don't have proper thread support (i.e. emscripten, wasm--for now)
@@ -327,6 +327,12 @@ endif
 
 ifeq ($(ENABLE_LIBYOSYS),1)
 TARGETS += libyosys.so
+endif
+
+ifeq ($(ENABLE_LIBYOSYS),1)
+ifeq ($(LINK_ABC),1)
+ABCMKARGS += ABC_USE_PIC=1
+endif
 endif
 
 ifeq ($(ENABLE_PYOSYS),1)
